@@ -12,11 +12,17 @@ public class App {
     public static void main(String[] args) {
         staticFileLocation("/public");
 
+
+        get("/", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
         get("/animals", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Animal> animals = Animal.all();
             model.put("animals", animals);
-            return new ModelAndView(model, "index.hbs");
+            return new ModelAndView(model, "animal.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/endangered", (request, response) -> {

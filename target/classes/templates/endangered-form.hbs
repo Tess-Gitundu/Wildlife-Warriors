@@ -1,0 +1,33 @@
+{{> layout.hbs}}
+<div class="container col-md-8 endangered-form">
+<h1>Add a new endangered animal sighting</h1>
+       <form action="/endangered/all" method="post">
+         <div class="mb-3">
+             <label for="name" class="form-label">Animal</label>
+             <input type="text" name="name" id="name">
+         </div>
+         <br>
+         <div class="mb-3">
+             <label for="location" class="form-label">Location</label>
+             <input type="text" name="location" id="location">
+         </div>
+         <br>
+         <div class="mb-3">
+             <label for="ranger" class="form-label">Ranger</label>
+             <input type="text" name="ranger" id="ranger">
+         </div>
+         <br>
+         <div class="mb-3">
+             <label for="health" class="form-label">Health Status</label>
+             <input type="text" name="health" id="health">
+         </div>
+         <br>
+         <div class="mb-3">
+             <label for="age" class="form-label">Health Status</label>
+             <input type="number" name="age" id="age">
+         </div>
+         <br>
+         <button type="submit" class="btn btn-primary">Submit</button>
+       </form>
+</div>
+

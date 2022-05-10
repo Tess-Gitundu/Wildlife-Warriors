@@ -1,0 +1,17 @@
+{{> layout.hbs}}
+<div class="animal-detail">
+<h2>Here are all the animals that have been sighted</h2>
+   {{#each animals}}
+<ul>
+   <li>
+     <p> Animal: {{name}}</p>
+   </li>
+   <li>
+     <p> Location Sighted: {{location}}</p>
+   </li>
+   <li>
+     <p> Sighted by: {{ranger}}</p>
+   </li>
+</ul>
+   {{/each}}
+</div>

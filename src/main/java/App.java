@@ -18,5 +18,12 @@ public class App {
             model.put("animals", animals);
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get("/endangered", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Endangered> endangered = Endangered.all();
+            model.put("endangered", endangered);
+            return new ModelAndView(model, "endangered.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }

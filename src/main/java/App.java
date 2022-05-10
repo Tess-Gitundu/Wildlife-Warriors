@@ -43,7 +43,7 @@ public class App {
             return new ModelAndView(model, "animal-form.hbs");
         }, new HandlebarsTemplateEngine());
 
-
+        //Supposed to be path to collect user input
         post("/animals/all", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String animalName = request.queryParams("name");
@@ -55,6 +55,7 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
+        //Supposed to be path to show all animals
         get("/animals/all", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Animal> animals = Animal.all();
@@ -62,8 +63,33 @@ public class App {
             return new ModelAndView(model, "animal-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
+        //Path to create an endangered animal
+        get("/endangered/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Endangered> endangered = Endangered.all();
+            model.put("endangered", endangered);
+            return new ModelAndView(model, "animal-form.hbs");
+        }, new HandlebarsTemplateEngine());
 
+        //Supposed to be path to collect user input
+        post("/endangered/all", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String animalName = request.queryParams("name");
+            String sightLocation = request.queryParams("location");
+            String rangerName = request.queryParams("ranger");
+            String healthStatus = request.queryParams("health");
+            int ageOfAnimal = Integer.parseInt(request.queryParams("age"));
+            Endangered newEndangeredAnimal = new Endangered(animalName, sightLocation, rangerName, healthStatus, ageOfAnimal);
+            model.put("newEndangeredAnimal", newEndangeredAnimal);
+            response.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
 
-
+        get("/endangered/all", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Endangered> endangered = Endangered.all();
+            model.put("endangered", endangered);
+            return new ModelAndView(model, "endangered-detail.hbs");
+        }, new HandlebarsTemplateEngine());
     }
 }

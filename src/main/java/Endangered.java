@@ -1,9 +1,15 @@
+import org.sql2o.Connection;
+import org.sql2o.Sql2oException;
+
+import java.util.List;
+
 public class Endangered implements Sightings{
     private String name;
     private String location;
     private String ranger;
     private String health;
     private int age;
+    private int id;
 
     public Endangered(String name, String location, String ranger, String health, int age) {
         this.name = name;
@@ -53,6 +59,14 @@ public class Endangered implements Sightings{
         this.age = age;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object otherEndangered){
         if (!(otherEndangered instanceof Endangered)) {
@@ -67,9 +81,47 @@ public class Endangered implements Sightings{
         }
     }
 
+
     @Override
     public void save() {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO endangered (name, location, ranger, health, age) VALUES (:name, :location, :ranger, :health, :age)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("name", this.name)
+                    .addParameter("location", this.location)
+                    .addParameter("ranger", this.ranger)
+                    .addParameter("health", this.health)
+                    .addParameter("age", this.age)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
 
+    public static List<Endangered> all() {
+        String sql = "SELECT * FROM endangered";
+        try(Connection con = DB.sql2o.open()){
+            return con.createQuery(sql).executeAndFetch(Endangered.class);
+        }
+    }
+
+    public static Endangered find(int id) {
+        try(Connection con = DB.sql2o.open()){
+            String sql = "SELECT * FROM endangered where id=:id";
+            Endangered endangered = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Endangered.class);
+            return endangered;
+        }
+    }
+
+    public static void clearAll() {
+        String sql = "DELETE from endangered";
+        try (Connection con = DB.sql2o.open()) {
+            con.createQuery(sql)
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println(ex);
+        }
     }
     @Override
     public void delete() {

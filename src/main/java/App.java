@@ -68,7 +68,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             List<Endangered> endangered = Endangered.all();
             model.put("endangered", endangered);
-            return new ModelAndView(model, "animal-form.hbs");
+            return new ModelAndView(model, "endangered-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //Supposed to be path to collect user input
@@ -85,6 +85,7 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
+        //Supposed to be path to show all animals
         get("/endangered/all", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Endangered> endangered = Endangered.all();

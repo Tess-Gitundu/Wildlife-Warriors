@@ -1,0 +1,23 @@
+{{> layout.hbs}}
+<div class="endangered-detail">
+<h2>Here are all the endangered animals that have been sighted</h2>
+   {{#each animals}}
+<ul>
+   <li>
+     <p> Animal: {{name}}</p>
+   </li>
+   <li>
+     <p> Location Sighted: {{location}}</p>
+   </li>
+   <li>
+     <p> Sighted by: {{ranger}}</p>
+   </li>
+   <li>
+      <p> Health Status: {{health}}</p>
+   </li>
+   <li>
+      <p> Animal's Age: {{age}}</p>
+   </li>
+</ul>
+   {{/each}}
+</div>
